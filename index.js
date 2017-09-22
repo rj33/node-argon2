@@ -13,7 +13,8 @@ const defaults = Object.freeze({
   memoryCost: 12,
   parallelism: 1,
   type: argon2i,
-  raw: false
+  raw: false,
+  saltGeneratorF: null
 })
 
 const limits = Object.freeze(bindings.limits)
@@ -37,8 +38,7 @@ module.exports = {
           reject(new Error(`Invalid ${key}, must be between ${min} and ${max}.`))
         }
       }
-
-      crypto.randomBytes(16, (err, salt) => {
+      (options == null || options.saltGeneratorF == null ? crypto.randomBytes : options.saltGeneratorF)(16, (err, salt) => {
         if (err) {
           reject(err)
         }
