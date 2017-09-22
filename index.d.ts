@@ -9,6 +9,7 @@ export interface Options {
     parallelism?: number;
     type?: 0 | 1 | 2;
     raw?: boolean;
+    saltGeneratorF?: (size: number, callback: (err: Error, buf: Buffer) => void) => void;
 }
 
 export interface NumericLimit {
